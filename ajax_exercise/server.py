@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request
 import pg
 
 db = pg.DB(dbname='ajax_exercise_db')
-db.debug = True
 
 app = Flask('app')
 
@@ -17,7 +16,10 @@ def search():
 
     # search = request.args.get("search")
     # print "The value of search is %r" % search
-    print request.args
-    return app.send_static_file('results.json')
+    query = request.args.get("search")
+    query = "%" + query + "%"
+    results = db.query(
+        "select * from website where title ilike $1", query).dictresult()
+    return jsonify(results)
 
 app.run(debug=True)
