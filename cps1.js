@@ -12,6 +12,8 @@ function squareCPS(num, callback) {
   callback(num * num);
 }
 
-var squared = squareCPS(5, function(squared) {
-  console.log('The squared number is: ', squared);
+var number = 5;
+
+var squared = squareCPS(number, function(squared) {
+  console.log(number + ' squared is: ', squared);
 });
